@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #cad2c5;
+            
+        }
+
+        .navbar {
+            height: 9vh;
+            background-color:  #22223b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            position: relative;
+            flex-wrap: nowrap;
+        }
+
+        .logo-bar {
+            color: white;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            height: 9vh;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo {
+            font-size: 3vh;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-compo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-compo p {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .register {
+            color: white;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .login-logo {
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        .log {
+            font-size: 25px;
+            padding: 10px;
+        }
+
+        .btn {
+            background-color: #b0c4b1;
+            color: rgb(4, 4, 62);
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+            color : black;
+            transform: translateY(-1px);
+        }
+
+        .btn.btn-dark {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn.btn-dark:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            background-image: url('Images/library1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            border-radius: 15px;
+            width : 90%;
+            margin : 5%;
+        }
+
+        .search-bar {
+            align-self: flex-end;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .search-in {
+            padding: 6.5px;
+            border-radius: 10px 0 0 10px;
+            font-size: 12px;
+            width: 15vw;
+        }
+
+        .search-btn {
+            border-radius: 0 10px 10px 0;
+            font-size: 15px;
+            padding: 5.5px;
+            background-color: #b0c4b1;
+            color: rgb(4,4,62);
+            border: 0.5px solid #22223b;
+        }
+        .search-btn:hover {
+            border: 0.5px solid black;
+            background-color: #a2caa4;
+            color : black;
+        }
+
+        .login-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            color: black;
+        }
+
+        .input-field {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #0984e3;
+            background: #f0f8ff;
+        }
+
+        .login-btn {
+            width: 88%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #0984e3;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #0652dd;
+        }
+
+        #msg {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .already {
+            color: black;
+            padding: 15px;
+        }
+
+        a {
+            color: black;
+        }
+
+        @media (max-width: 1030px) {
+            .navbar {
+                height: 8vh;
+                padding: 0 10px;
+            }
+
+            .logo-bar {
+                height: 8vh;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 2.5vh;
+                padding: 6px;
+            }
+
+            .logo-compo p {
+                font-size: 1rem;
+            }
+
+            .register {
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .login-logo {
+                font-size: 18px;
+                padding: 4px;
+            }
+
+            .image-back h1 {
+                font-size: 7vh;
+            }
+
+            .image-back i {
+                font-size: 13vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 7vh;
+                padding: 0 8px;
+            }
+
+            .logo-bar {
+                height: 7vh;
+                gap: 8px;
+            }
+
+            .logo {
+                font-size: 2vh;
+                padding: 4px;
+            }
+
+            .logo-compo p {
+                font-size: 0.9rem;
+            }
+
+            .register {
+                gap: 6px;
+            }
+
+            .btn {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+            }
+
+            .login-logo {
+                font-size: 16px;
+                padding: 3px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                height: 6.5vh;
+                padding: 0 5px;
+            }
+
+            .logo-bar {
+                height: 6.5vh;
+                gap: 5px;
+            }
+
+            .logo {
+                font-size: 1.8vh;
+                padding: 3px;
+            }
+
+            .logo-compo p {
+                font-size: 0.8rem;
+                line-height: 1.1;
+            }
+
+            .register {
+                gap: 4px;
+            }
+
+            .btn {
+                padding: 4px 6px;
+                font-size: 0.7rem;
+            }
+
+            .login-logo {
+                font-size: 14px;
+                padding: 2px;
+            }
+
+            .image-back {
+                height: 85vh;
+            }
+
+            .image-back h1 {
+                font-size: 5vh;
+            }
+
+            .image-back i {
+                font-size: 10vh;
+            }
+
+            .search-bar {
+                padding: 6px;
+            }
+
+            .search-in {
+                padding: 3.25px;
+                font-size: 8px;
+            }
+
+            .search-btn {
+                padding: 2.25px;
+                font-size: 10px;
+            }
+
+            .info-bar {
+                padding: 7px;
+            }
+
+            .info-compo {
+                gap: 2.5vh;
+                padding: 3px;
+            }
+        }
+
+        @media (max-width: 391px) {
+            .navbar {
+                height: 6vh;
+                padding: 0 3px;
+            }
+
+            .logo-bar {
+                height: 6vh;
+                gap: 3px;
+            }
+
+            .logo {
+                font-size: 1.5vh;
+                padding: 2px;
+            }
+
+            .logo-compo p {
+                font-size: 0.7rem;
+                line-height: 1;
+            }
+
+            .register {
+                gap: 3px;
+            }
+
+            .btn {
+                padding: 3px 5px;
+                font-size: 0.65rem;
+            }
+
+            .login-logo {
+                font-size: 12px;
+                padding: 1px;
+            }
+
+            .image-back {
+                height: 70vh;
+            }
+
+            .image-back h1 {
+                font-size: 3vh;
+            }
+
+            .image-back i {
+                font-size: 8vh;
+            }
+
+            .info-bar {
+                padding: 5px;
+            }
+
+            .info-compo {
+                gap: 1vh;
+                padding: 2px;
+            }
+        }
+
+        .sidebar {
+            padding: none;
+        }
+
+        @media (max-width: 320px) {
+            .navbar {
+                height: 5.5vh;
+                padding: 0 2px;
+            }
+
+            .logo-bar {
+                height: 5.5vh;
+                gap: 2px;
+            }
+
+            .logo {
+                font-size: 1.3vh;
+                padding: 1px;
+            }
+
+            .logo-compo p {
+                font-size: 0.6rem;
+                line-height: 0.9;
+            }
+
+            .register {
+                gap: 2px;
+            }
+
+            .btn {
+                padding: 2px 4px;
+                font-size: 0.6rem;
+            }
+
+            .login-logo {
+                font-size: 10px;
+                padding: 1px;
+            }
+        }
+
+       
+        .logo-compo p {
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo-bar">
+            <div class="logo-compo">
+                <i class="fa-solid fa-book logo"></i>
+                <p>Public<br>Library</p>
+            </div>
+            
+            <button class="btn btn-dark m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+                <i class="fa fa-bars"></i> Menu
+            </button>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="#" class="nav-link">About</a></li>
+                        <li><a href="#" class="nav-link">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="register">
+            <div class="search-bar">
+                <input type="text" name="book-name" placeholder="Enter book name " class="search-com search-in" />
+                <button class="search-btn search-com">Search</button>
+            </div>
+            <i class="fa-solid fa-right-to-bracket login-logo"></i>
+            <button class="login btn">Log in</button>
+            <button class="sign-up btn">Sign up</button>
+
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div class="login-box">
+            <h1>Log in</h1>
+            <form id="loginForm">
+                <input type="text" name="username" class="input-field" placeholder="👤 Username" required>
+                <input type="password" name="password" class="input-field" placeholder="🔒 Password" required>
+                <br>
+                <a href="" class="forget-password">Forget Password</a>
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+            <p class="already">Don't have an account? <a href="signup.html">Sign up</a></p>
+            <p id="msg"></p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        
+
+        const loginForm = document.getElementById("loginForm");
+        const msg = document.getElementById("msg");
+
+        // For now, let's set a dummy username & password
+        const USERNAME = "admin";
+        const PASSWORD = "12345";
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const username = loginForm.username.value.trim();
+            const password = loginForm.password.value.trim();
+
+            if (username === USERNAME && password === PASSWORD) {
+                msg.textContent = "✅ Login successful! Redirecting...";
+                msg.style.color = "green";
+
+                // Redirect after 2 sec to home page
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 2000);
+            } else {
+                msg.textContent = "❌ Invalid username or password. If you haven't signed up, sign up first.";
+                msg.style.color = "red";
+                msg.style.padding = "5px";
+                msg.style.backgroundColor = "#fff";
+                msg.style.borderRadius = "10px";
+            }
+        });
+        const btn1 = document.querySelector(".login");
+        btn1.addEventListener("click", () => {
+            window.location.href = "login.html";
+        })
+        const btn2 = document.querySelector(".sign-up");
+        btn2.addEventListener("click", () => {
+            window.location.href = "signup.html";
+        })
+        const home = document.querySelector(".home");
+        home.addEventListener("click", () => {
+            window.location.href = "index.html";
+        })
+    </script>
+</body>
+
+</html>
