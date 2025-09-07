@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Library Management System — Starter (HTML/CSS)</title>
+  <meta name="description" content="Responsive library app starter: list books, search by title/author, optional login & signup UI." />
+
+  <!-- Base styles -->
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: #121836;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --ring: rgba(110,231,183,.35);
+      --radius: 16px;
+      --shadow: 0 8px 30px rgba(2,6,23,.4);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, #1f2937 0%, var(--bg) 50%) fixed;
+      color: var(--text); line-height:1.5;
+    }
+    a{color:inherit}
+
+    /* Layout */
+    .container{max-width:1200px; margin-inline:auto; padding: 16px;}
+    header{
+      position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px);
+      background: linear-gradient(180deg, rgba(11,16,32,.8), rgba(11,16,32,.6));
+      border-bottom: 1px solid rgba(148,163,184,.15);
+      z-index:5;
+    }
+    .nav{
+      display:flex; align-items:center; gap:12px; justify-content:space-between; padding:12px 16px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .logo{width:36px; height:36px; border-radius:12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow)}
+    .actions{display:flex; gap:8px;}
+    .btn{appearance:none; border:1px solid rgba(148,163,184,.28); background:#0b122a; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600}
+    .btn:hover{border-color: rgba(148,163,184,.6)}
+    .btn.accent{background: linear-gradient(135deg, rgba(110,231,183,.12), rgba(96,165,250,.12)); border-color: transparent}
+
+    .toolbar{display:grid; grid-template-columns: 1fr; gap:12px; padding: 14px 16px 18px;}
+    @media (min-width:640px){ .toolbar{grid-template-columns: 1fr 220px; align-items:center} }
+
+    .search{display:flex; align-items:center; gap:10px; background: #0b122a; border:1px solid rgba(148,163,184,.28); padding:10px 12px; border-radius: 12px}
+    .search input{flex:1; background:transparent; border:0; outline: none; color: var(--text); font-size:16px}
+    .search input::placeholder{color: var(--muted)}
+
+    .filters{display:flex; gap:8px; justify-content:flex-start}
+    .chip{border:1px solid rgba(148,163,184,.28); background:#0b122a; color:var(--muted); padding:8px 12px; border-radius:999px; cursor:pointer; font-size:14px}
+    .chip.active{color:#0f172a; background: var(--accent); border-color: transparent}
+
+    /* Grid */
+    .grid{display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));}
+    .card{background: linear-gradient(180deg, rgba(18,24,54,.9), rgba(12,16,38,.9)); border:1px solid rgba(148,163,184,.18); border-radius: var(--radius); padding:14px; box-shadow: var(--shadow); display:flex; flex-direction:column; gap:10px}
+    .cover{aspect-ratio: 3 / 4; border-radius: 12px; background: #0b122a; border:1px dashed rgba(148,163,184,.28); display:flex; align-items:center; justify-content:center; font-size:12px; color: var(--muted)}
+    .meta{display:flex; flex-direction:column; gap:2px}
+    .title{font-weight:700}
+    .author{color: var(--muted); font-size:14px}
+    .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
+    .tag{font-size:12px; color:#0f172a; background:rgba(110,231,183,.85); padding:4px 8px; border-radius: 999px}
+
+    footer{opacity:.8; font-size:13px; text-align:center; padding: 40px 0 60px}
+
+    
+
+  </style>
+</head>
+
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="nav container">
+      <div class="brand" aria-label="App brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Library Management</span>
+      </div>
+      <div class="actions">
+        <button class="btn" id="loginBtn" type="button" aria-haspopup="dialog" aria-controls="loginDialog">Log in</button>
+        <button class="btn accent" id="signupBtn" type="button" aria-haspopup="dialog" aria-controls="signupDialog">Sign up</button>
+      </div>
+    </div>
+
+    <div class="toolbar container" role="region" aria-label="Search toolbar">
+      <div class="search" role="search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input id="searchInput" type="search" placeholder="Search by title or author…" aria-label="Search books" />
+      </div>
+      <div class="filters" role="group" aria-label="Quick filters">
+        <button class="chip active" data-filter="all" type="button">All</button>
+        <button class="chip" data-filter="fiction" type="button">Fiction</button>
+        <button class="chip" data-filter="nonfiction" type="button">Non‑fiction</button>
+        <button class="chip" data-filter="tech" type="button">Tech</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" id="content" tabindex="-1">
+    <h1 class="sr-only">Available Books</h1>
+    <section class="grid" id="bookGrid" aria-label="Book grid">
+      <!-- Sample book cards: duplicate or replace with real data -->
+      <article class="card" data-title="The Pragmatic Programmer" data-author="Andrew Hunt" data-tags="tech nonfiction">
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">The Pragmatic Programmer</div>
+          <div class="author">Andrew Hunt, David Thomas</div>
+          <div class="tags">
+            <span class="tag">Tech</span>
+            <span class="tag">Non‑fiction</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Clean Code" data-author="Robert C. Martin" data-tags="tech nonfiction">
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">Clean Code</div>
+          <div class="author">Robert C. Martin</div>
+          <div class="tags">
+            <span class="tag">Tech</span>
+            <span class="tag">Non‑fiction</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="To Kill a Mockingbird" data-author="Harper Lee" data-tags="fiction">
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">To Kill a Mockingbird</div>
+          <div class="author">Harper Lee</div>
+          <div class="tags">
+            <span class="tag">Fiction</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Sapiens" data-author="Yuval Noah Harari" data-tags="nonfiction">
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">Sapiens</div>
+          <div class="author">Yuval Noah Harari</div>
+          <div class="tags">
+            <span class="tag">Non‑fiction</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="The Alchemist" data-author="Paulo Coelho" >
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">The Alchemist</div>
+          <div class="author">Paulo Coelho</div>
+          <div class="tags">
+            <span class="tag">Fiction</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Introduction to Algorithms" data-author="Thomas H. Cormen" data-tags="tech nonfiction">
+        <div class="cover">Cover</div>
+        <div class="meta">
+          <div class="title">Introduction to Algorithms</div>
+          <div class="author">Cormen, Leiserson, Rivest, Stein</div>
+          <div class="tags">
+        
+            <span class="tag">Non‑fiction</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  
+</body>
+</html>
